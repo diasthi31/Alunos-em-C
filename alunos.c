@@ -26,10 +26,9 @@ int menu() {
 void lerAluno(tipoAluno *inserir) {
     printf("Matrícula: ");
     scanf("%s", inserir->matricula);
-    while (getchar() != '\n');
     printf("Nome: ");
-    scanf("%s", inserir->nome);
-    while (getchar() != '\n');
+    setbuf(stdin, NULL);
+    fgets(inserir->nome, 100, stdin);
     printf("Nota 1: ");
     scanf("%lf", &inserir->nota1);
     printf("Nota 2: ");
@@ -44,10 +43,10 @@ void inserirAluno(tipoAluno aluno, tipoAluno *turma, int *quantidade) {
 
 void listarAlunos(tipoAluno *turma, int quantidade) {
     system("clear");
-    printf("Lista de alunos:\n");
+    printf("Lista de alunos:\n\n");
     for (int i = 0; i < quantidade; i++) {
-        printf("\nMatrícula: %s\n", turma[i].matricula);
-        printf("Nome: %s\n", turma[i].nome);
+        printf("Matrícula: %s\n", turma[i].matricula);
+        printf("Nome: %s", turma[i].nome);
         printf("Média: %.2lf\n", turma[i].media);
         printf("---------------------------------\n");
     }
@@ -55,11 +54,11 @@ void listarAlunos(tipoAluno *turma, int quantidade) {
 
 void listarAprovados(tipoAluno *turma, int quantidade) {
     system("clear");
-    printf("Alunos aprovados:\n");
+    printf("Alunos aprovados:\n\n");
     for (int i = 0; i < quantidade; i++) {
         if (turma[i].media >= 6.0) {
-            printf("\nMatrícula: %s\n", turma[i].matricula);
-            printf("Nome: %s\n", turma[i].nome);
+            printf("Matrícula: %s\n", turma[i].matricula);
+            printf("Nome: %s", turma[i].nome);
             printf("Média: %.2lf\n", turma[i].media);
             printf("---------------------------------\n");
         }
@@ -84,12 +83,10 @@ int main() {
         
             case 2:
                 listarAlunos(turma, quantidade);
-                printf("\n");
                 break;
         
             case 3:
                 listarAprovados(turma, quantidade);
-                printf("\n");
                 break;
         
             case 4:
